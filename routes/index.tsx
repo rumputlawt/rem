@@ -22,7 +22,7 @@ export default define.page((_ctx) => {
 					Login to access dashboard
 				</p>
 				<a
-					class="flex px-4 py-2 font-semibold font-[Outfit] text-[#4a5e43] text-sm bg-[#8BA981] rounded-full"
+					class="flex px-4 py-2 font-semibold font-[Outfit] text-[#4A5E43] text-sm bg-[#8BA981] rounded-full"
 					href="/login"
 				>
 					Login with Discord

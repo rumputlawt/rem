@@ -33,9 +33,11 @@ export async function build() {
 }
 
 export async function loadManifest(mode: Mode) {
-	const manifestFile = mode === "production" ? "bot.gen.ts" : "dev.gen.ts";
+	const manifestFile = mode === "production"
+		? "~/bot.gen.ts"
+		: "~/dev.gen.ts";
 	const { default: manifest }: { default: Manifest } = await import(
-		`~/${manifestFile}`
+		manifestFile
 	);
 	return manifest;
 }

@@ -2,9 +2,11 @@ import { createDefine } from "fresh";
 import { envOrThrow } from "@dudasaus/env-or-throw";
 import { REST } from "@discordjs/rest";
 import { API } from "@discordjs/core";
+import { User } from "./auth.ts";
 
-// deno-lint-ignore no-empty-interface
-export interface State {}
+export interface State {
+	user?: User;
+}
 
 export const define = createDefine<State>();
 

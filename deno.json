@@ -25,6 +25,7 @@
 		"@discordjs/core": "npm:@discordjs/core@^2.0.1/http-only",
 		"@discordjs/rest": "npm:@discordjs/rest@^2.4.3",
 		"@dudasaus/env-or-throw": "jsr:@dudasaus/env-or-throw@^1.0.1",
+		"@gz/jwt": "jsr:@gz/jwt@^0.1.0",
 		"@std/encoding": "jsr:@std/encoding@^1.0.9",
 		"@std/fs": "jsr:@std/fs@^1.0.16",
 		"@std/http": "jsr:@std/http@^1.0.14",

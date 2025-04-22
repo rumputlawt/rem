@@ -41,7 +41,6 @@ export const handler = define.handlers({
 					case InteractionType.ApplicationCommand: {
 						if (isSlashCommandInteraction(interaction)) {
 							const slashCommand = await findCommand(
-								ctx.config.mode,
 								interaction.data.name,
 								interaction.data.type,
 							);

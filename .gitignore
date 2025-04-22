@@ -5,9 +5,13 @@
 .env.production.local
 .env.local
 
+# test files
+*_test.ts
+
 # Fresh build directory
 _fresh/
 # npm + other dependencies
 node_modules/
 vendor/
 
+bot.gen.ts

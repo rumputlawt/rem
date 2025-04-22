@@ -10,6 +10,8 @@ import {
 } from "@discordjs/core";
 import tweetnacl from "tweetnacl";
 import { decodeHex } from "@std/encoding/hex";
+import { isSlashCommandInteraction } from "../../utils/interaction.ts";
+import { findCommand } from "../../utils/command.ts";
 
 export const handler = define.handlers({
 	async POST(ctx) {
@@ -33,8 +35,27 @@ export const handler = define.handlers({
 				throw unauthorized;
 			} else {
 				const interaction: APIInteraction = JSON.parse(body);
+				const unknownCommand = new Error("Unknown Command");
 
 				switch (interaction.type) {
+					case InteractionType.ApplicationCommand: {
+						if (isSlashCommandInteraction(interaction)) {
+							const slashCommand = await findCommand(
+								interaction.data.name,
+								interaction.data.type,
+							);
+
+							if (slashCommand) {
+								return Response.json(
+									slashCommand.execute(interaction),
+								);
+							} else {
+								throw unknownCommand;
+							}
+						} else {
+							throw unknownCommand;
+						}
+					}
 					case InteractionType.Ping: {
 						return Response.json(
 							{

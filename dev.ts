@@ -3,12 +3,9 @@ import { tailwind } from "@fresh/plugin-tailwind";
 
 import { Builder } from "fresh/dev";
 import { app } from "./main.ts";
-import { build } from "./utils/build.ts";
 
 const builder = new Builder();
 tailwind(builder, app, {});
-
-await build();
 
 if (Deno.args.includes("build")) {
 	await builder.build(app);

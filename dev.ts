@@ -7,8 +7,10 @@ import { build } from "./utils/build.ts";
 
 const builder = new Builder();
 tailwind(builder, app, {});
+
+await build();
+
 if (Deno.args.includes("build")) {
-	await build();
 	await builder.build(app);
 } else {
 	await builder.listen(app);

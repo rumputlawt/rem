@@ -1,5 +1,6 @@
 import { walk, WalkOptions } from "@std/fs/walk";
 import { Command } from "./command.ts";
+import { Mode } from "fresh";
 
 const WALK_OPTIONS: WalkOptions = {
 	maxDepth: 1,
@@ -31,10 +32,10 @@ export async function build() {
 		.output();
 }
 
-export async function loadManifest() {
-	const manifestPath = "../bot.gen.ts";
+export async function loadManifest(mode: Mode) {
+	const manifestFile = mode === "production" ? "bot.gen.ts" : "dev.gen.ts";
 	const { default: manifest }: { default: Manifest } = await import(
-		manifestPath
+		`../${manifestFile}`
 	);
 	return manifest;
 }
@@ -42,3 +43,5 @@ export async function loadManifest() {
 export interface Manifest {
 	commands: Command[];
 }
+
+export type { Mode };

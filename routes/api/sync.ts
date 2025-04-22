@@ -10,7 +10,7 @@ export const handler = define.handlers({
 		if (!user?.admin) {
 			throw new HttpError(STATUS_CODE.Unauthorized);
 		} else {
-			await deployCommands();
+			await deployCommands(ctx.config.mode);
 			return new Response(null, { status: STATUS_CODE.NoContent });
 		}
 	},

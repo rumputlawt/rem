@@ -7,9 +7,9 @@ import {
 	RESTPostAPIApplicationCommandsJSONBody,
 	RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "@discordjs/core";
-import manifest from "../bot.gen.ts";
 import { discord } from "./core.ts";
 import { envOrThrow } from "@dudasaus/env-or-throw";
+import { loadManifest } from "./build.ts";
 
 interface BaseCommand<
 	Data extends RESTPostAPIApplicationCommandsJSONBody,
@@ -26,14 +26,16 @@ export type CommandResponse = Exclude<
 export function findCommand(
 	name: string,
 	type: ApplicationCommandType.ChatInput,
-): SlashCommand | undefined;
-export function findCommand(name: string, type: ApplicationCommandType) {
+): Promise<SlashCommand | undefined>;
+export async function findCommand(name: string, type: ApplicationCommandType) {
+	const manifest = await loadManifest();
 	return manifest.commands.find((command) =>
 		command.data.name === name && command.data.type === type
 	);
 }
 
 export async function deployCommands() {
+	const manifest = await loadManifest();
 	await discord().applicationCommands.bulkOverwriteGlobalCommands(
 		envOrThrow("DISCORD_ID"),
 		manifest.commands.map((command) => command.data),
@@ -52,3 +54,5 @@ export function slashCommand(
 	};
 }
 export type SlashCommand = ReturnType<typeof slashCommand>;
+
+export type Command = SlashCommand;

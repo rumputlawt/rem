@@ -40,7 +40,7 @@ export const handler = define.handlers({
 				switch (interaction.type) {
 					case InteractionType.ApplicationCommand: {
 						if (isSlashCommandInteraction(interaction)) {
-							const slashCommand = findCommand(
+							const slashCommand = await findCommand(
 								interaction.data.name,
 								interaction.data.type,
 							);

@@ -22,6 +22,8 @@
 		"**/_fresh/*"
 	],
 	"imports": {
+		"@discordjs/formatters": "npm:@discordjs/formatters@^0.6.0",
+		"@gfx/canvas-wasm": "jsr:@gfx/canvas-wasm@^0.4.2",
 		"~/": "./",
 		"@discordjs/core": "npm:@discordjs/core@^2.0.1/http-only",
 		"@discordjs/rest": "npm:@discordjs/rest@^2.4.3",

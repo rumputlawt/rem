@@ -3,13 +3,14 @@ import {
 	APIChatInputApplicationCommandInteraction,
 	APIInteractionResponse,
 	APIInteractionResponsePong,
+	APIInteractionResponseUpdateMessage,
 	ApplicationCommandType,
 	RESTPostAPIApplicationCommandsJSONBody,
 	RESTPostAPIChatInputApplicationCommandsJSONBody,
 } from "@discordjs/core";
 import { discord } from "./core.ts";
 import { envOrThrow } from "@dudasaus/env-or-throw";
-import commands from "../commands/mod.ts";
+import commands from "../discord/commands/mod.ts";
 
 interface BaseCommand<
 	Data extends RESTPostAPIApplicationCommandsJSONBody,
@@ -20,7 +21,7 @@ interface BaseCommand<
 }
 export type CommandResponse = Exclude<
 	APIInteractionResponse,
-	APIInteractionResponsePong
+	APIInteractionResponsePong | APIInteractionResponseUpdateMessage
 >;
 
 export function findCommand(

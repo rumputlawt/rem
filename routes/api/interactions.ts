@@ -10,8 +10,12 @@ import {
 } from "@discordjs/core";
 import tweetnacl from "tweetnacl";
 import { decodeHex } from "@std/encoding/hex";
-import { isSlashCommandInteraction } from "../../utils/interaction.ts";
+import {
+	isButtonComponentInteraction,
+	isSlashCommandInteraction,
+} from "../../utils/interaction.ts";
 import { findCommand } from "../../utils/command.ts";
+import { findComponent } from "~/utils/component.ts";
 
 export const handler = define.handlers({
 	async POST(ctx) {
@@ -35,12 +39,12 @@ export const handler = define.handlers({
 				throw unauthorized;
 			} else {
 				const interaction: APIInteraction = JSON.parse(body);
-				const unknownCommand = new Error("Unknown Command");
 
 				switch (interaction.type) {
 					case InteractionType.ApplicationCommand: {
+						const unknownCommand = new Error("Unknown Command");
 						if (isSlashCommandInteraction(interaction)) {
-							const slashCommand = await findCommand(
+							const slashCommand = findCommand(
 								interaction.data.name,
 								interaction.data.type,
 							);
@@ -54,6 +58,26 @@ export const handler = define.handlers({
 							}
 						} else {
 							throw unknownCommand;
+						}
+					}
+					case InteractionType.MessageComponent: {
+						const unknownComponent = new Error("Unknown Component");
+
+						if (isButtonComponentInteraction(interaction)) {
+							const buttonComponent = findComponent(
+								interaction.data.custom_id,
+								interaction.data.component_type,
+							);
+
+							if (buttonComponent) {
+								return Response.json(
+									buttonComponent.execute(interaction),
+								);
+							} else {
+								throw unknownComponent;
+							}
+						} else {
+							throw unknownComponent;
 						}
 					}
 					case InteractionType.Ping: {

@@ -1,7 +1,7 @@
 import { Command } from "~/utils/command.ts";
 
-import welcome from "./welcome.ts";
+import createVerify from "./create_verify.ts";
 
 export default [
-	welcome,
+	createVerify,
 ] satisfies Command[];

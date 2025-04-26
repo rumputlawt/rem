@@ -151,6 +151,6 @@ export async function showRules(
 	await bot.interactions.editReply(
 		interaction.application_id,
 		interaction.token,
-		{ content: "sent." },
+		{ content: "Rules created." },
 	);
 }

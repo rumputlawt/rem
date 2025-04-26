@@ -22,11 +22,12 @@
 		"**/_fresh/*"
 	],
 	"imports": {
-		"@discordjs/formatters": "npm:@discordjs/formatters@^0.6.0",
+		"@discordjs/builders": "npm:@discordjs/builders@^1.11.1",
+		"@discordjs/formatters": "npm:@discordjs/formatters@^0.6.1",
 		"@gfx/canvas-wasm": "jsr:@gfx/canvas-wasm@^0.4.2",
 		"~/": "./",
-		"@discordjs/core": "npm:@discordjs/core@^2.0.1/http-only",
-		"@discordjs/rest": "npm:@discordjs/rest@^2.4.3",
+		"@discordjs/core": "npm:@discordjs/core@^2.1.0/http-only",
+		"@discordjs/rest": "npm:@discordjs/rest@^2.5.0",
 		"@dudasaus/env-or-throw": "jsr:@dudasaus/env-or-throw@^1.0.1",
 		"@gz/jwt": "jsr:@gz/jwt@^0.1.0",
 		"@std/encoding": "jsr:@std/encoding@^1.0.9",

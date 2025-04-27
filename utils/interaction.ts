@@ -1,5 +1,7 @@
 import {
 	APIApplicationCommandInteraction,
+	APIApplicationCommandInteractionDataOption,
+	APIApplicationCommandInteractionDataStringOption,
 	APIChatInputApplicationCommandInteraction,
 	APIInteractionResponseCallbackData,
 	APIInteractionResponseChannelMessageWithSource,
@@ -7,9 +9,11 @@ import {
 	APIInteractionResponseDeferredMessageUpdate,
 	APIMessageComponentButtonInteraction,
 	APIMessageComponentInteraction,
+	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	ComponentType,
 	InteractionResponseType,
+	InteractionType,
 } from "@discordjs/core";
 
 export function isButtonComponentInteraction(
@@ -41,4 +45,29 @@ export function replyInteraction(
 	data: APIInteractionResponseCallbackData,
 ): APIInteractionResponseChannelMessageWithSource {
 	return { data, type: InteractionResponseType.ChannelMessageWithSource };
+}
+
+export function getStringOption(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+) {
+	return getOption<APIApplicationCommandInteractionDataStringOption>(
+		interaction,
+		name,
+		ApplicationCommandOptionType.String,
+	);
+}
+
+function getOption<
+	T extends APIApplicationCommandInteractionDataOption<
+		InteractionType.ApplicationCommand
+	>,
+>(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	type: ApplicationCommandOptionType,
+): T | undefined {
+	return interaction.data.options?.find((opt) =>
+		opt.name === name && opt.type === type
+	) as T;
 }
